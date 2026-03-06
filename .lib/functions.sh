@@ -4,7 +4,7 @@
 function prevent_sudo_or_root() {
   if [[ $(whoami) == "root" ]]; then
     echo "This script cannot run as root. Aborting..."
-    return 1
+    exit 1
   fi
 }
 
@@ -24,16 +24,23 @@ function request_variables() {
   read -rp "Server address (0.0.0.0): " SERVER_ADDRESS
 }
 
+function save_variables() {
+  # Sobrescribe el archivo para no duplicar
+  >"$ENV_FILE"
+
+  # Recorre todas las variables que quieras exportar
+  for var in SPRING_APPLICATION_NAME SPRING_DATASOURCE_URL SPRING_DATASOURCE_USERNAME SPRING_DATASOURCE_PASSWORD \
+    SPRING_JPA_HIBERNATE_DDL_AUTO SPRING_JPA_SHOW_SQL SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT \
+    SERVER_PORT SERVER_ADDRESS; do
+    # Escribe en formato clave=valor
+    echo "$var=\"${!var}\"" >>"$ENV_FILE"
+  done
+}
+
 function export_variables() {
-  export SPRING_APPLICATION_NAME
-  export SPRING_DATASOURCE_URL
-  export SPRING_DATASOURCE_USERNAME
-  export SPRING_DATASOURCE_PASSWORD
-  export SPRING_JPA_HIBERNATE_DDL_AUTO
-  export SPRING_JPA_SHOW_SQL
-  export SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT
-  export SERVER_PORT
-  export SERVER_ADDRESS
+  save_variables
+
+  source "$ENV_FILE"
 }
 
 # Display a summary of the loaded variables (password hidden)

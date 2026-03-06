@@ -1,4 +1,9 @@
-# Variables definition
+# Variable definitions
+# This is NOT a script for execution, but for loading functions, so NOT need execution permission or shebang.
+
+# Routes
+declare PROJECT_DIR=$(pwd)
+declare ENV_FILE="$PROJECT_DIR/.env"
 
 # Variables to be exported
 declare SPRING_APPLICATION_NAME
