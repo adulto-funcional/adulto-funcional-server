@@ -6,6 +6,16 @@
 # guardarlas en .env y cargarlas automáticamente en el entorno.
 # -------------------------------------------------------------
 
+# Cambia al directorio del script para que las rutas relativas funcionen
+cd "$(dirname "$0")"
+
+# Importa funciones auxiliares y variables de entorno comunes
+source ./.lib/environment-variables.sh
+source ./.lib/functions.sh
+
+execution_warning
+prevent_sudo_or_root
+
 # ------------------------------------------------------------------
 # Evita que el script se ejecute directamente.
 # Debe ser sourceado para que las variables se carguen en el entorno actual.
@@ -16,14 +26,6 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   exit 1
 fi
 
-# Cambia al directorio del script para que las rutas relativas funcionen
-cd "$(dirname "$0")"
-
-# Importa funciones auxiliares y variables de entorno comunes
-source ./.lib/environment-variables.sh
-source ./.lib/functions.sh
-
-prevent_sudo_or_root
 set -e # detiene el script si algun comando falla
 
 # ------------------------------------------------------------------
@@ -35,4 +37,11 @@ export_variables
 show_summary
 
 echo "Las variables de entorno están listas. Puede ejecutar su aplicación Spring Boot:"
-echo "  ./mvnw spring-boot:run"
+echo "Con este comando:  ./mvnw spring-boot:run"
+echo
+echo "NOTA"
+echo
+echo "SI USTED ENCUENTRA PROBLEMAS AL EJECUTAR LA APLICACIÓN SPRING BOOT"
+echo "POR FAVOR REVISE QUE HAYA ESCRITO CORRECTAMENTE LAS VARIABLES"
+
+loading
