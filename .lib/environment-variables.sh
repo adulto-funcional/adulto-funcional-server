@@ -1,11 +1,16 @@
-# Variable definitions
-# This is NOT a script for execution, but for loading functions, so NOT need execution permission or shebang.
-
-# Routes
+# ------------------------------------------------------------------
+# Directorio de proyecto y archivo .env
+# ENV_FILE contendrá los valores configurados para poder cargarlos
+# en cualquier sesión sin volver a ejecutar la configuración.
+# ------------------------------------------------------------------
 declare PROJECT_DIR=$(pwd)
 declare ENV_FILE="$PROJECT_DIR/.env"
 
-# Variables to be exported
+# ------------------------------------------------------------------
+# Variables de configuración de la aplicación
+# Se usan temporalmente para capturar los valores del usuario
+# antes de ser exportadas al entorno y guardadas en .env.
+# ------------------------------------------------------------------
 declare SPRING_APPLICATION_NAME
 declare SPRING_DATASOURCE_URL
 declare SPRING_DATASOURCE_USERNAME
