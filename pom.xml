@@ -86,7 +86,7 @@
               <rules>
 
                 <requireEnvironmentVariable>
-                  <variableName>SPRING_DATASOURCE_URL</variableName>
+                  <variableName>SPRING_APPLICATION_NAME</variableName>
                   <message>
 
 _______  ______            _______  _______ _________ _______  _        _______ _________ _______ 
@@ -107,6 +107,10 @@ _______  ______            _______  _______ _________ _______  _        _______ 
                 </requireEnvironmentVariable>
 
                 <requireEnvironmentVariable>
+                  <variableName>SPRING_DATASOURCE_URL</variableName>
+                </requireEnvironmentVariable>
+
+                <requireEnvironmentVariable>
                   <variableName>SPRING_DATASOURCE_USERNAME</variableName>
                 </requireEnvironmentVariable>
 
@@ -115,7 +119,23 @@ _______  ______            _______  _______ _________ _______  _        _______ 
                 </requireEnvironmentVariable>
 
                 <requireEnvironmentVariable>
+                  <variableName>SPRING_JPA_HIBERNATE_DDL_AUTO</variableName>
+                </requireEnvironmentVariable>
+
+                <requireEnvironmentVariable>
+                  <variableName>SPRING_JPA_SHOW_SQL</variableName>
+                </requireEnvironmentVariable>
+
+                <requireEnvironmentVariable>
+                  <variableName>SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT</variableName>
+                </requireEnvironmentVariable>
+
+                <requireEnvironmentVariable>
                   <variableName>SERVER_PORT</variableName>
+                </requireEnvironmentVariable>
+
+                <requireEnvironmentVariable>
+                  <variableName>SERVER_ADDRESS</variableName>
                 </requireEnvironmentVariable>
 
               </rules>

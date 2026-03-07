@@ -1,5 +1,16 @@
-# This is NOT a script for execution, but for loading functions, so NOT need execution permission or shebang.
-# NOTE that you NOT need to `cd ..' because the `$0' is NOT this file, but the script file which will source this file.
+# -----------------------------------------------------------------------------
+# Funciones utilitarias de Bash para la configuración del entorno.
+#
+# Este archivo es una librería de funciones auxiliares utilizada por
+# `.set-env.sh`. NO está diseñado para ejecutarse directamente.
+#
+# En su lugar, debe cargarse desde otro script usando `source`:
+#
+#   source ./.lib/functions.sh
+#
+# Dado que solo define funciones, no requiere shebang (`#!/bin/bash`)
+# ni permisos de ejecución.
+# -----------------------------------------------------------------------------
 
 # ------------------------------------------------------------------
 # Muestra una animación de puntos para indicar que se está
@@ -42,7 +53,7 @@ function execution_warning() {
 
   echo
   echo
-  read -rp "[0] Cargar el archivo .env [1] configurar las variables de entorno (responda [0]/[1])" LOAD_ENV
+  read -rp "[0] Configurar las variables de entorno [1] Cargar el archivo .env (responda [0]/[1])" LOAD_ENV
 
   while [[ -z $LOAD_ENV && $LOAD_ENV != 0 && $LOAD_ENV != 1 ]]; do
     echo "Debe de responder 0 para continuar o 1 para cargar las variables"
@@ -110,7 +121,7 @@ function request_variables() {
   done
 
   while [[ -z "$SERVER_ADDRESS" ]]; do
-    read -rp "Server address (0.0.0.0): " SERVER_ADDRESS
+    read -rp "Server address (127.0.0.1): " SERVER_ADDRESS
   done
 }
 

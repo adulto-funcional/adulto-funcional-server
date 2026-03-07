@@ -1,3 +1,19 @@
+# -----------------------------------------------------------------------------
+# Variables de configuración del entorno para la aplicación.
+#
+# Este archivo define las variables utilizadas durante el proceso de
+# configuración del proyecto y la generación del archivo `.env`.
+# NO está diseñado para ejecutarse directamente.
+#
+# En su lugar, debe cargarse desde otro script usando `source`:
+#
+#   source ./.lib/variables.sh
+#
+# Las variables declaradas aquí se utilizan para almacenar temporalmente
+# los valores de configuración antes de exportarlos al entorno y guardarlos
+# en el archivo `.env`.
+# -----------------------------------------------------------------------------
+
 # ------------------------------------------------------------------
 # Directorio de proyecto y archivo .env
 # ENV_FILE contendrá los valores configurados para poder cargarlos
