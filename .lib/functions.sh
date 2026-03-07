@@ -117,7 +117,9 @@ function save_variables() {
 function export_variables() {
   save_variables
 
+  set -a
   source "$ENV_FILE"
+  set +a
 }
 
 # ------------------------------------------------------------------
