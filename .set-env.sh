@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-prevent_sudo_or_root
 
 # -------------------------------------------------------------
 # .set-env.sh
@@ -9,12 +8,14 @@ prevent_sudo_or_root
 # -------------------------------------------------------------
 
 # Cambia al directorio del script para que las rutas relativas funcionen
-cd "$(dirname "$0")"
+SCRIPT_DIR="$(command cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+command cd "$SCRIPT_DIR"
 
 # Importa funciones auxiliares y variables de entorno comunes
 source ./.lib/environment-variables.sh
 source ./.lib/functions.sh
 
+prevent_sudo_or_root
 execution_warning
 
 # ------------------------------------------------------------------

@@ -40,9 +40,11 @@ function execution_warning() {
 
   loading
 
-  read -r LOAD_ENV
+  echo
+  echo
+  read -rp "[0] Cargar el archivo .env [1] configurar las variables de entorno (responda [0]/[1])" LOAD_ENV
 
-  while [[ -z $LOAD_ENV || $LOAD_ENV != 0 || $LOAD_ENV != 1 ]]; do
+  while [[ -z $LOAD_ENV && $LOAD_ENV != 0 && $LOAD_ENV != 1 ]]; do
     echo "Debe de responder 0 para continuar o 1 para cargar las variables"
   done
 
