@@ -22,15 +22,36 @@ function execution_warning() {
   echo "
   NOTA:
 
-  RECUERDE QUE ESTE SCRIPT DEBE DE SER EJECUTAD CON source <nombre-de-este-script>
-  TAMBIEN VERIFIQUE QUE USTED ESTA EJECUTANDO ESTE SCRIPT CON 'bash' Y NO OTRA SHELL
-
-  EN CASO TAL DE QUE SE IGNOREN ESTAS ADVERTENCIAS ES PROBABLE QUE ESTE SCRIPT TERMINE CON UN MENSAJE DE ERROR
-  O VAYA A TENER DIFERENTES PROBLEMAS AL INTENTAR EJECUTARLO
+  ----------------------------------------------------------------------------------------------------------------
+  - RECUERDE QUE ESTE SCRIPT DEBE DE SER EJECUTADO CON 'source <nombre-de-este-script>'                          -
+  - TAMBIEN VERIFIQUE QUE USTED ESTA EJECUTANDO ESTE SCRIPT CON 'bash' Y NO OTRA SHELL                           -
+  -                                                                                                              -
+  - EN CASO TAL DE QUE SE IGNOREN ESTAS ADVERTENCIAS ES PROBABLE QUE ESTE SCRIPT TERMINE CON UN MENSAJE DE ERROR -
+  - O VAYA A TENER DIFERENTES PROBLEMAS AL INTENTAR EJECUTARLO                                                   -
+  -                                                                                                              -
+  - --------------------------------------------------------------------------------------------------------------
+  -                                                                                                              -
+  - SI USTED YA EJECUTO ESTE COMANDO Y SOLAMENTE QUIERE CARGAR LAS VARIABLES DE ENTORNO POR FAVOR INGRESE 1      -
+  - DE LO CONTRARIO ESCRIBA 0                                                                                    -
+  -                                                                                                              -
+  ----------------------------------------------------------------------------------------------------------------
 
 "
 
   loading
+
+  read -r LOAD_ENV
+
+  while [[ -z $LOAD_ENV || $LOAD_ENV != 0 || $LOAD_ENV != 1 ]]; do
+    echo "Debe de responder 0 para continuar o 1 para cargar las variables"
+  done
+
+  if [[ $LOAD_ENV == 1 ]]; then
+    set -a
+    source "$ENV_FILE"
+    set +a
+  fi
+
   echo
 }
 
@@ -40,7 +61,7 @@ function execution_warning() {
 # ------------------------------------------------------------------
 function prevent_sudo_or_root() {
   if [[ $(whoami) == "root" ]]; then
-    echo "This script cannot run as root. Aborting..."
+    echo "Este script no se puede ejecutar como root. Abortando..."
     exit 1
   fi
 }
@@ -51,7 +72,7 @@ function prevent_sudo_or_root() {
 # del script para luego ser guardadas en el archivo .env.
 # ------------------------------------------------------------------
 function request_variables() {
-  echo "Please enter the configuration variables:"
+  echo "Por favor ingrese las variables de configuración:"
 
   while [[ -z "$SPRING_APPLICATION_NAME" ]]; do
     read -rp "Application name (spring.application.name): " SPRING_APPLICATION_NAME
@@ -129,7 +150,7 @@ function export_variables() {
 function show_summary() {
   echo
   echo "====================================="
-  echo "Loaded environment variables:"
+  echo "Variables de entorno cargadas:"
   echo "spring.application.name: $SPRING_APPLICATION_NAME"
   echo "spring.datasource.url: $SPRING_DATASOURCE_URL"
   echo "spring.datasource.username: $SPRING_DATASOURCE_USERNAME"

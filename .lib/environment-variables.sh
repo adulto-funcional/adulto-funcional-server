@@ -5,6 +5,7 @@
 # ------------------------------------------------------------------
 declare PROJECT_DIR=$(pwd)
 declare ENV_FILE="$PROJECT_DIR/.env"
+declare LOAD_ENV
 
 # ------------------------------------------------------------------
 # Variables de configuración de la aplicación

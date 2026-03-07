@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+prevent_sudo_or_root
+
 # -------------------------------------------------------------
 # .set-env.sh
 # Configura las variables de entorno necesarias para la
@@ -14,7 +16,6 @@ source ./.lib/environment-variables.sh
 source ./.lib/functions.sh
 
 execution_warning
-prevent_sudo_or_root
 
 # ------------------------------------------------------------------
 # Evita que el script se ejecute directamente.
