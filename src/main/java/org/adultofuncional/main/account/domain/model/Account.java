@@ -185,6 +185,23 @@ public class Account {
   }
 
   /**
+   * Reemplaza el hash Argon2 de la contraseña de inicio de sesión.
+   *
+   * <p>
+   * El dominio no recibe la contraseña en texto plano. La verificación de la
+   * contraseña actual y el hashing de la nueva contraseña pertenecen al caso de
+   * uso para mantener aislados los detalles criptográficos.
+   *
+   * @param passwordHash nuevo hash Argon2 de la contraseña.
+   */
+  public void updatePasswordHash(String passwordHash) {
+    if (passwordHash == null || passwordHash.isBlank()) {
+      throw new IllegalArgumentException("PasswordHash cannot be null or empty");
+    }
+    this.passwordHash = passwordHash;
+  }
+
+  /**
    * Retorna el nombre completo concatenado (nombres + apellidos).
    *
    * @return nombre completo del titular
