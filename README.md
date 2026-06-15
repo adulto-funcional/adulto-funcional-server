@@ -7,6 +7,7 @@ Backend construido con **Spring Boot 3.5.13** y **Java 21** que implementa una a
 - **Gestión financiera**: Movimientos (ingresos/egresos), gastos fijos recurrentes y categorías personalizadas
 - **Agenda personal**: Eventos con prioridades, recordatorios, estados y recurrencia configurable
 - **Gestor de contraseñas**: Almacenamiento seguro con encriptación AES-256 protegido por Master Key
+- **Master Key posterior al registro**: Creación, verificación, cambio con recifrado y cierre de sesión del gestor
 - **Autenticación segura**: JWT + Argon2 para contraseñas y acceso al gestor de contraseñas
 - **Identificadores únicos**: UUID v7 (ordenable temporalmente) para todas las entidades
 - **Migraciones controladas**: Flyway para versionado de base de datos
@@ -56,6 +57,9 @@ org.adultofuncional.main
 ```
 
 Para una documentación técnica detallada de la arquitectura, consulta [ARCHITECTURE.md](./ARCHITECTURE.md).
+
+Para el flujo completo de seguridad, Master Key, cifrado y endpoints del
+gestor de contraseñas, consulta [SECURITY.md](./SECURITY.md).
 
 ## Estructura de la base de datos
 
