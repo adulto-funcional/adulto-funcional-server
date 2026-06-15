@@ -3,7 +3,9 @@ package org.adultofuncional.main.account.infrastructure.controller;
 import java.util.UUID;
 
 import org.adultofuncional.main.account.application.dto.AccountResponse;
+import org.adultofuncional.main.account.application.dto.ChangePasswordRequest;
 import org.adultofuncional.main.account.application.dto.UpdateAccountRequest;
+import org.adultofuncional.main.account.application.usecase.ChangePasswordUseCase;
 import org.adultofuncional.main.account.application.usecase.DeleteAccountUseCase;
 import org.adultofuncional.main.account.application.usecase.GetAccountUseCase;
 import org.adultofuncional.main.account.application.usecase.UpdateAccountUseCase;
@@ -60,6 +62,7 @@ public class AccountController {
 
   private final GetAccountUseCase getAccountUseCase;
   private final UpdateAccountUseCase updateAccountUseCase;
+  private final ChangePasswordUseCase changePasswordUseCase;
   private final DeleteAccountUseCase deleteAccountUseCase;
   private final OwnershipValidator ownershipValidator;
 
@@ -161,6 +164,35 @@ public class AccountController {
             .status(HttpStatus.OK.value())
             .message("Cuenta actualizada exitosamente")
             .data(updated)
+            .build());
+  }
+
+  /**
+   * Cambia la contraseña de inicio de sesión de una cuenta.
+   *
+   * <p>
+   * Valida ownership antes de delegar al caso de uso. El caso de uso exige la
+   * contraseña actual y solo persiste el hash de la nueva contraseña.
+   *
+   * @param id          UUID de la cuenta.
+   * @param request     contraseña actual y nueva contraseña.
+   * @param loggedEmail email del usuario autenticado.
+   * @return 200 OK si la contraseña fue actualizada.
+   */
+  @PatchMapping("/{id}/password")
+  public ResponseEntity<ApiResponse<Void>> changePassword(
+      @PathVariable UUID id,
+      @Valid @RequestBody ChangePasswordRequest request,
+      @AuthenticationPrincipal String loggedEmail) {
+
+    AccountResponse account = getAccountUseCase.execute(id);
+    ownershipValidator.validate(account, loggedEmail);
+    changePasswordUseCase.execute(id, request);
+
+    return ResponseEntity.ok(
+        ApiResponse.<Void>builder()
+            .status(HttpStatus.OK.value())
+            .message("Contraseña actualizada exitosamente")
             .build());
   }
 

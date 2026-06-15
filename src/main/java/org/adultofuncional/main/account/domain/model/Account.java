@@ -159,6 +159,49 @@ public class Account {
   }
 
   /**
+   * Indica si la cuenta ya tiene una Master Key configurada.
+   *
+   * @return {@code true} si existe un hash de Master Key almacenado.
+   */
+  public boolean hasMasterKey() {
+    return masterKeyHash != null && !masterKeyHash.isBlank();
+  }
+
+  /**
+   * Configura o reemplaza el hash Argon2 de la Master Key.
+   *
+   * <p>
+   * El dominio solo recibe el hash ya calculado. La clave en texto plano se
+   * valida y hashea en la capa de aplicación para evitar que el modelo de
+   * dominio conozca detalles de infraestructura criptográfica.
+   *
+   * @param masterKeyHash hash Argon2 de la Master Key.
+   */
+  public void updateMasterKeyHash(String masterKeyHash) {
+    if (masterKeyHash == null || masterKeyHash.isBlank()) {
+      throw new IllegalArgumentException("MasterKeyHash cannot be null or empty");
+    }
+    this.masterKeyHash = masterKeyHash;
+  }
+
+  /**
+   * Reemplaza el hash Argon2 de la contraseña de inicio de sesión.
+   *
+   * <p>
+   * El dominio no recibe la contraseña en texto plano. La verificación de la
+   * contraseña actual y el hashing de la nueva contraseña pertenecen al caso de
+   * uso para mantener aislados los detalles criptográficos.
+   *
+   * @param passwordHash nuevo hash Argon2 de la contraseña.
+   */
+  public void updatePasswordHash(String passwordHash) {
+    if (passwordHash == null || passwordHash.isBlank()) {
+      throw new IllegalArgumentException("PasswordHash cannot be null or empty");
+    }
+    this.passwordHash = passwordHash;
+  }
+
+  /**
    * Retorna el nombre completo concatenado (nombres + apellidos).
    *
    * @return nombre completo del titular

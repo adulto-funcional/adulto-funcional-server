@@ -19,6 +19,10 @@
  * —
  * Actualiza nombres, apellidos, teléfono y email de una cuenta, validando la
  * unicidad del nuevo email.</li>
+ * <li>{@link org.adultofuncional.main.account.application.usecase.ChangePasswordUseCase}
+ * —
+ * Cambia la contraseña de inicio de sesión validando la contraseña actual y
+ * persistiendo solo el nuevo hash Argon2.</li>
  * <li>{@link org.adultofuncional.main.account.application.usecase.DeleteAccountUseCase}
  * —
  * Elimina una cuenta y todos sus datos asociados en cascada (movimientos,
@@ -31,8 +35,9 @@
  * ejecutan con {@code @Transactional} para garantizar atomicidad.</li>
  * <li>La validación de ownership se realiza en el controlador antes de invocar
  * estos casos de uso.</li>
- * <li>Los datos sensibles ({@code password}, {@code masterKey}) nunca se
- * exponen ni se modifican a través de estos casos de uso.</li>
+ * <li>Los datos sensibles nunca se exponen. La contraseña solo se modifica a
+ * través de {@code ChangePasswordUseCase}; la Master Key se modifica en el
+ * módulo de seguridad.</li>
  * </ul>
  *
  * @author Miguel Angel Blandon Montes

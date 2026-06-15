@@ -137,5 +137,10 @@ Almacena las credenciales de aplicaciones externas cifradas con AES‑256 median
   - Para cada credencial se genera un salt aleatorio, un IV aleatorio, y se deriva una clave AES de 256 bits usando HKDF (o PBKDF2) a partir de la clave maestra y el salt.
   - El texto cifrado almacena el par `usuario:contraseña` (o cualquier otro formato) y, si se usa AES‑GCM, también el tag de autenticación.
   - Un atacante que obtenga acceso completo a la base de datos no podrá descifrar ninguna credencial sin conocer la clave maestra del usuario correspondiente.
+- **Cambio de Master Key**:
+  - La columna `accounts.account_master_key` almacena solo el hash Argon2 de la Master Key.
+  - Cambiar la Master Key no consiste únicamente en reemplazar ese hash: todas las filas de `passwords` de la cuenta deben descifrarse con la clave actual y recifrarse con la nueva.
+  - Si el usuario olvida la Master Key, las credenciales cifradas existentes no pueden recuperarse sin la clave original.
+  - El flujo y endpoints están documentados en [SECURITY.md](./SECURITY.md).
 - **Índices**: Los índices adicionales mejoran el rendimiento en consultas por `account_id` (muy frecuentes) y por fechas en movimientos y eventos.
 - **Migraciones**: El esquema se gestiona mediante Flyway (`src/main/resources/database/migrations/`), siguiendo las convenciones de versionado del proyecto (referenciado en README.md).
