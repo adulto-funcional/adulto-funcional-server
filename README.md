@@ -118,7 +118,7 @@ jwt:
   expiration: 86400000
 
 APP_COOKIE_SECURE: false
-APP_COOKIE_SAME_SITE: None
+APP_COOKIE_SAME_SITE: Lax
 CORS_ALLOWED_ORIGINS: http://localhost:5173/
 ```
 
