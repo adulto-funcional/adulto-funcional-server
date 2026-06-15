@@ -319,7 +319,8 @@ docker-compose restart app
 
 - `GET /api/account/{id}` - Obtener datos de una cuenta (requiere autenticación + ownership)
 - `PATCH /api/account/{id}` - Actualizar datos de una cuenta (requiere autenticación + ownership)
-- `DELETE /api/account/{id}` - Eliminar una cuenta (endpoint existe, lógica pendiente — retorna 501 Not Implemented)
+- `PATCH /api/account/{id}/password` - Cambiar contraseña validando la contraseña actual (requiere autenticación + ownership)
+- `DELETE /api/account/{id}` - Eliminar una cuenta y sus datos asociados (requiere autenticación + ownership)
 
 ### Autenticación (`/api/auth`)
 
@@ -422,7 +423,7 @@ En desarrollo activo. Estado por módulo:
 | Módulo             | Estado     | Detalle                                                                                                                           |
 | ------------------ | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | Autenticación      | Completado | Login resistente a enumeración, registro con `ConflictException` (409), logout con `ApiResponse` 204, protección anti‑XSS en DTOs |
-| Cuentas            | Parcial    | GET y PATCH funcionales con ownership y unicidad de email; DELETE implementado en use case pero no expuesto en controller (501)   |
+| Cuentas            | Completado | GET, PATCH, cambio de contraseña y DELETE funcionales con ownership; unicidad de email en actualización                         |
 | Financiero         | Completado | CRUD completo de movimientos, gastos fijos y categorías con filtros, `@NoHtml` y controlador REST bajo `/api/finances`            |
 | Agenda             | Completado | CRUD completo de eventos con prioridad, recurrencia, recordatorios y controlador REST bajo `/api/agenda`                          |
 | Gestor contraseñas | Completado | Cifrado AES‑256, verificación de Master Key, CRUD completo bajo `/api/security/passwords`                                         |

@@ -22,6 +22,11 @@
  * campos de texto libre están anotados con
  * {@link org.adultofuncional.main.shared.security.NoHtml}
  * para prevenir inyección de HTML malicioso (Stored XSS).</li>
+ * <li>{@link org.adultofuncional.main.account.application.dto.ChangePasswordRequest}
+ * —
+ * Datos de entrada para reemplazar la contraseña de inicio de sesión. Recibe
+ * la contraseña actual y la nueva contraseña; ninguna se expone en respuestas
+ * ni debe registrarse en logs.</li>
  * </ul>
  *
  * <h2>Seguridad</h2>
@@ -36,6 +41,9 @@
  * {@code OwnedResource} para que el
  * {@link org.adultofuncional.main.shared.security.OwnershipValidator}
  * pueda validar el acceso sin acoplarse al módulo de cuentas.</li>
+ * <li><strong>Contraseña:</strong> {@code ChangePasswordRequest} solo viaja
+ * hasta el caso de uso de cambio de contraseña, donde se valida contra el hash
+ * actual y se persiste un nuevo hash Argon2.</li>
  * </ul>
  *
  * @author Miguel Angel Blandon Montes, Juan Sebastian Rios
